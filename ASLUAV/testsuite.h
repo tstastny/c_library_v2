@@ -941,12 +941,13 @@ static void mavlink_test_npfg_status(uint8_t system_id, uint8_t component_id, ma
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_npfg_status_t packet_in = {
-        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,149
+        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,161
     };
     mavlink_npfg_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.timestamp = packet_in.timestamp;
-        packet1.lateral_acceleration_demand = packet_in.lateral_acceleration_demand;
+        packet1.path_curvature = packet_in.path_curvature;
+        packet1.lateral_accel_demand = packet_in.lateral_accel_demand;
         packet1.heading_ref = packet_in.heading_ref;
         packet1.heading_error = packet_in.heading_error;
         packet1.nav_bearing = packet_in.nav_bearing;
@@ -971,12 +972,12 @@ static void mavlink_test_npfg_status(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_npfg_status_pack(system_id, component_id, &msg , packet1.timestamp , packet1.lateral_acceleration_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
+    mavlink_msg_npfg_status_pack(system_id, component_id, &msg , packet1.timestamp , packet1.path_curvature , packet1.lateral_accel_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
     mavlink_msg_npfg_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_npfg_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.lateral_acceleration_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
+    mavlink_msg_npfg_status_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.path_curvature , packet1.lateral_accel_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
     mavlink_msg_npfg_status_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -989,7 +990,7 @@ static void mavlink_test_npfg_status(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_npfg_status_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.lateral_acceleration_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
+    mavlink_msg_npfg_status_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.path_curvature , packet1.lateral_accel_demand , packet1.heading_ref , packet1.heading_error , packet1.nav_bearing , packet1.bearing_feas , packet1.track_error , packet1.track_error_bound , packet1.p_gain , packet1.airsp_incr_w , packet1.airsp_incr_e , packet1.wind_condition );
     mavlink_msg_npfg_status_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
