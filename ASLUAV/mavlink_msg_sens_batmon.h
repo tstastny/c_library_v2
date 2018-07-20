@@ -19,7 +19,7 @@ typedef struct __mavlink_sens_batmon_t {
  uint16_t cellvoltage4; /*< Battery pack cell 4 voltage*/
  uint16_t cellvoltage5; /*< Battery pack cell 5 voltage*/
  uint16_t cellvoltage6; /*< Battery pack cell 6 voltage*/
- uint8_t NPFG_WIND_CONDSoC; /*< Battery pack state-of-charge*/
+ uint8_t SoC; /*< Battery pack state-of-charge*/
 }) mavlink_sens_batmon_t;
 
 #define MAVLINK_MSG_ID_SENS_BATMON_LEN 41
@@ -27,8 +27,8 @@ typedef struct __mavlink_sens_batmon_t {
 #define MAVLINK_MSG_ID_209_LEN 41
 #define MAVLINK_MSG_ID_209_MIN_LEN 41
 
-#define MAVLINK_MSG_ID_SENS_BATMON_CRC 75
-#define MAVLINK_MSG_ID_209_CRC 75
+#define MAVLINK_MSG_ID_SENS_BATMON_CRC 155
+#define MAVLINK_MSG_ID_209_CRC 155
 
 
 
@@ -41,7 +41,7 @@ typedef struct __mavlink_sens_batmon_t {
          { "temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_sens_batmon_t, temperature) }, \
          { "voltage", NULL, MAVLINK_TYPE_UINT16_T, 0, 20, offsetof(mavlink_sens_batmon_t, voltage) }, \
          { "current", NULL, MAVLINK_TYPE_INT16_T, 0, 22, offsetof(mavlink_sens_batmon_t, current) }, \
-         { "NPFG_WIND_CONDSoC", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_sens_batmon_t, NPFG_WIND_CONDSoC) }, \
+         { "SoC", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_sens_batmon_t, SoC) }, \
          { "batterystatus", NULL, MAVLINK_TYPE_UINT16_T, 0, 24, offsetof(mavlink_sens_batmon_t, batterystatus) }, \
          { "serialnumber", NULL, MAVLINK_TYPE_UINT16_T, 0, 26, offsetof(mavlink_sens_batmon_t, serialnumber) }, \
          { "safetystatus", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_sens_batmon_t, safetystatus) }, \
@@ -62,7 +62,7 @@ typedef struct __mavlink_sens_batmon_t {
          { "temperature", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_sens_batmon_t, temperature) }, \
          { "voltage", NULL, MAVLINK_TYPE_UINT16_T, 0, 20, offsetof(mavlink_sens_batmon_t, voltage) }, \
          { "current", NULL, MAVLINK_TYPE_INT16_T, 0, 22, offsetof(mavlink_sens_batmon_t, current) }, \
-         { "NPFG_WIND_CONDSoC", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_sens_batmon_t, NPFG_WIND_CONDSoC) }, \
+         { "SoC", NULL, MAVLINK_TYPE_UINT8_T, 0, 40, offsetof(mavlink_sens_batmon_t, SoC) }, \
          { "batterystatus", NULL, MAVLINK_TYPE_UINT16_T, 0, 24, offsetof(mavlink_sens_batmon_t, batterystatus) }, \
          { "serialnumber", NULL, MAVLINK_TYPE_UINT16_T, 0, 26, offsetof(mavlink_sens_batmon_t, serialnumber) }, \
          { "safetystatus", NULL, MAVLINK_TYPE_UINT32_T, 0, 12, offsetof(mavlink_sens_batmon_t, safetystatus) }, \
@@ -87,7 +87,7 @@ typedef struct __mavlink_sens_batmon_t {
  * @param temperature Battery pack temperature
  * @param voltage Battery pack voltage
  * @param current Battery pack current
- * @param NPFG_WIND_CONDSoC Battery pack state-of-charge
+ * @param SoC Battery pack state-of-charge
  * @param batterystatus Battery monitor status report bits in Hex
  * @param serialnumber Battery monitor serial number in Hex
  * @param safetystatus Battery monitor safetystatus report bits in Hex
@@ -101,7 +101,7 @@ typedef struct __mavlink_sens_batmon_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t NPFG_WIND_CONDSoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
+                               uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t SoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SENS_BATMON_LEN];
@@ -119,7 +119,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t c
     _mav_put_uint16_t(buf, 34, cellvoltage4);
     _mav_put_uint16_t(buf, 36, cellvoltage5);
     _mav_put_uint16_t(buf, 38, cellvoltage6);
-    _mav_put_uint8_t(buf, 40, NPFG_WIND_CONDSoC);
+    _mav_put_uint8_t(buf, 40, SoC);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SENS_BATMON_LEN);
 #else
@@ -138,7 +138,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t c
     packet.cellvoltage4 = cellvoltage4;
     packet.cellvoltage5 = cellvoltage5;
     packet.cellvoltage6 = cellvoltage6;
-    packet.NPFG_WIND_CONDSoC = NPFG_WIND_CONDSoC;
+    packet.SoC = SoC;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SENS_BATMON_LEN);
 #endif
@@ -157,7 +157,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t c
  * @param temperature Battery pack temperature
  * @param voltage Battery pack voltage
  * @param current Battery pack current
- * @param NPFG_WIND_CONDSoC Battery pack state-of-charge
+ * @param SoC Battery pack state-of-charge
  * @param batterystatus Battery monitor status report bits in Hex
  * @param serialnumber Battery monitor serial number in Hex
  * @param safetystatus Battery monitor safetystatus report bits in Hex
@@ -172,7 +172,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack(uint8_t system_id, uint8_t c
  */
 static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t batmon_timestamp,float temperature,uint16_t voltage,int16_t current,uint8_t NPFG_WIND_CONDSoC,uint16_t batterystatus,uint16_t serialnumber,uint32_t safetystatus,uint32_t operationstatus,uint16_t cellvoltage1,uint16_t cellvoltage2,uint16_t cellvoltage3,uint16_t cellvoltage4,uint16_t cellvoltage5,uint16_t cellvoltage6)
+                                   uint64_t batmon_timestamp,float temperature,uint16_t voltage,int16_t current,uint8_t SoC,uint16_t batterystatus,uint16_t serialnumber,uint32_t safetystatus,uint32_t operationstatus,uint16_t cellvoltage1,uint16_t cellvoltage2,uint16_t cellvoltage3,uint16_t cellvoltage4,uint16_t cellvoltage5,uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SENS_BATMON_LEN];
@@ -190,7 +190,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint
     _mav_put_uint16_t(buf, 34, cellvoltage4);
     _mav_put_uint16_t(buf, 36, cellvoltage5);
     _mav_put_uint16_t(buf, 38, cellvoltage6);
-    _mav_put_uint8_t(buf, 40, NPFG_WIND_CONDSoC);
+    _mav_put_uint8_t(buf, 40, SoC);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SENS_BATMON_LEN);
 #else
@@ -209,7 +209,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint
     packet.cellvoltage4 = cellvoltage4;
     packet.cellvoltage5 = cellvoltage5;
     packet.cellvoltage6 = cellvoltage6;
-    packet.NPFG_WIND_CONDSoC = NPFG_WIND_CONDSoC;
+    packet.SoC = SoC;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SENS_BATMON_LEN);
 #endif
@@ -228,7 +228,7 @@ static inline uint16_t mavlink_msg_sens_batmon_pack_chan(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_sens_batmon_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
 {
-    return mavlink_msg_sens_batmon_pack(system_id, component_id, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->NPFG_WIND_CONDSoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
+    return mavlink_msg_sens_batmon_pack(system_id, component_id, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 }
 
 /**
@@ -242,7 +242,7 @@ static inline uint16_t mavlink_msg_sens_batmon_encode(uint8_t system_id, uint8_t
  */
 static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sens_batmon_t* sens_batmon)
 {
-    return mavlink_msg_sens_batmon_pack_chan(system_id, component_id, chan, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->NPFG_WIND_CONDSoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
+    return mavlink_msg_sens_batmon_pack_chan(system_id, component_id, chan, msg, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 }
 
 /**
@@ -253,7 +253,7 @@ static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint8_t system_id, ui
  * @param temperature Battery pack temperature
  * @param voltage Battery pack voltage
  * @param current Battery pack current
- * @param NPFG_WIND_CONDSoC Battery pack state-of-charge
+ * @param SoC Battery pack state-of-charge
  * @param batterystatus Battery monitor status report bits in Hex
  * @param serialnumber Battery monitor serial number in Hex
  * @param safetystatus Battery monitor safetystatus report bits in Hex
@@ -267,7 +267,7 @@ static inline uint16_t mavlink_msg_sens_batmon_encode_chan(uint8_t system_id, ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sens_batmon_send(mavlink_channel_t chan, uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t NPFG_WIND_CONDSoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
+static inline void mavlink_msg_sens_batmon_send(mavlink_channel_t chan, uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t SoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SENS_BATMON_LEN];
@@ -285,7 +285,7 @@ static inline void mavlink_msg_sens_batmon_send(mavlink_channel_t chan, uint64_t
     _mav_put_uint16_t(buf, 34, cellvoltage4);
     _mav_put_uint16_t(buf, 36, cellvoltage5);
     _mav_put_uint16_t(buf, 38, cellvoltage6);
-    _mav_put_uint8_t(buf, 40, NPFG_WIND_CONDSoC);
+    _mav_put_uint8_t(buf, 40, SoC);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SENS_BATMON, buf, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #else
@@ -304,7 +304,7 @@ static inline void mavlink_msg_sens_batmon_send(mavlink_channel_t chan, uint64_t
     packet.cellvoltage4 = cellvoltage4;
     packet.cellvoltage5 = cellvoltage5;
     packet.cellvoltage6 = cellvoltage6;
-    packet.NPFG_WIND_CONDSoC = NPFG_WIND_CONDSoC;
+    packet.SoC = SoC;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SENS_BATMON, (const char *)&packet, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #endif
@@ -318,7 +318,7 @@ static inline void mavlink_msg_sens_batmon_send(mavlink_channel_t chan, uint64_t
 static inline void mavlink_msg_sens_batmon_send_struct(mavlink_channel_t chan, const mavlink_sens_batmon_t* sens_batmon)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_sens_batmon_send(chan, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->NPFG_WIND_CONDSoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
+    mavlink_msg_sens_batmon_send(chan, sens_batmon->batmon_timestamp, sens_batmon->temperature, sens_batmon->voltage, sens_batmon->current, sens_batmon->SoC, sens_batmon->batterystatus, sens_batmon->serialnumber, sens_batmon->safetystatus, sens_batmon->operationstatus, sens_batmon->cellvoltage1, sens_batmon->cellvoltage2, sens_batmon->cellvoltage3, sens_batmon->cellvoltage4, sens_batmon->cellvoltage5, sens_batmon->cellvoltage6);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SENS_BATMON, (const char *)sens_batmon, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #endif
@@ -332,7 +332,7 @@ static inline void mavlink_msg_sens_batmon_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sens_batmon_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t NPFG_WIND_CONDSoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
+static inline void mavlink_msg_sens_batmon_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t batmon_timestamp, float temperature, uint16_t voltage, int16_t current, uint8_t SoC, uint16_t batterystatus, uint16_t serialnumber, uint32_t safetystatus, uint32_t operationstatus, uint16_t cellvoltage1, uint16_t cellvoltage2, uint16_t cellvoltage3, uint16_t cellvoltage4, uint16_t cellvoltage5, uint16_t cellvoltage6)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -350,7 +350,7 @@ static inline void mavlink_msg_sens_batmon_send_buf(mavlink_message_t *msgbuf, m
     _mav_put_uint16_t(buf, 34, cellvoltage4);
     _mav_put_uint16_t(buf, 36, cellvoltage5);
     _mav_put_uint16_t(buf, 38, cellvoltage6);
-    _mav_put_uint8_t(buf, 40, NPFG_WIND_CONDSoC);
+    _mav_put_uint8_t(buf, 40, SoC);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SENS_BATMON, buf, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #else
@@ -369,7 +369,7 @@ static inline void mavlink_msg_sens_batmon_send_buf(mavlink_message_t *msgbuf, m
     packet->cellvoltage4 = cellvoltage4;
     packet->cellvoltage5 = cellvoltage5;
     packet->cellvoltage6 = cellvoltage6;
-    packet->NPFG_WIND_CONDSoC = NPFG_WIND_CONDSoC;
+    packet->SoC = SoC;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SENS_BATMON, (const char *)packet, MAVLINK_MSG_ID_SENS_BATMON_MIN_LEN, MAVLINK_MSG_ID_SENS_BATMON_LEN, MAVLINK_MSG_ID_SENS_BATMON_CRC);
 #endif
@@ -422,11 +422,11 @@ static inline int16_t mavlink_msg_sens_batmon_get_current(const mavlink_message_
 }
 
 /**
- * @brief Get field NPFG_WIND_CONDSoC from sens_batmon message
+ * @brief Get field SoC from sens_batmon message
  *
  * @return Battery pack state-of-charge
  */
-static inline uint8_t mavlink_msg_sens_batmon_get_NPFG_WIND_CONDSoC(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_sens_batmon_get_SoC(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg,  40);
 }
@@ -554,7 +554,7 @@ static inline void mavlink_msg_sens_batmon_decode(const mavlink_message_t* msg, 
     sens_batmon->cellvoltage4 = mavlink_msg_sens_batmon_get_cellvoltage4(msg);
     sens_batmon->cellvoltage5 = mavlink_msg_sens_batmon_get_cellvoltage5(msg);
     sens_batmon->cellvoltage6 = mavlink_msg_sens_batmon_get_cellvoltage6(msg);
-    sens_batmon->NPFG_WIND_CONDSoC = mavlink_msg_sens_batmon_get_NPFG_WIND_CONDSoC(msg);
+    sens_batmon->SoC = mavlink_msg_sens_batmon_get_SoC(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SENS_BATMON_LEN? msg->len : MAVLINK_MSG_ID_SENS_BATMON_LEN;
         memset(sens_batmon, 0, MAVLINK_MSG_ID_SENS_BATMON_LEN);

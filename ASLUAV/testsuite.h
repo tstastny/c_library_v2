@@ -687,7 +687,7 @@ static void mavlink_test_sens_batmon(uint8_t system_id, uint8_t component_id, ma
         packet1.cellvoltage4 = packet_in.cellvoltage4;
         packet1.cellvoltage5 = packet_in.cellvoltage5;
         packet1.cellvoltage6 = packet_in.cellvoltage6;
-        packet1.NPFG_WIND_CONDSoC = packet_in.NPFG_WIND_CONDSoC;
+        packet1.SoC = packet_in.SoC;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -702,12 +702,12 @@ static void mavlink_test_sens_batmon(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sens_batmon_pack(system_id, component_id, &msg , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.NPFG_WIND_CONDSoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
+    mavlink_msg_sens_batmon_pack(system_id, component_id, &msg , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.SoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
     mavlink_msg_sens_batmon_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sens_batmon_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.NPFG_WIND_CONDSoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
+    mavlink_msg_sens_batmon_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.SoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
     mavlink_msg_sens_batmon_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -720,7 +720,7 @@ static void mavlink_test_sens_batmon(uint8_t system_id, uint8_t component_id, ma
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sens_batmon_send(MAVLINK_COMM_1 , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.NPFG_WIND_CONDSoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
+    mavlink_msg_sens_batmon_send(MAVLINK_COMM_1 , packet1.batmon_timestamp , packet1.temperature , packet1.voltage , packet1.current , packet1.SoC , packet1.batterystatus , packet1.serialnumber , packet1.safetystatus , packet1.operationstatus , packet1.cellvoltage1 , packet1.cellvoltage2 , packet1.cellvoltage3 , packet1.cellvoltage4 , packet1.cellvoltage5 , packet1.cellvoltage6 );
     mavlink_msg_sens_batmon_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
