@@ -192,9 +192,9 @@ typedef enum MAV_CMD
 #define HAVE_ENUM_NPFG_WIND_COND
 typedef enum NPFG_WIND_COND
 {
-   uint8 NPFG_WIND_COND_LOW=0, /* Wind condition is low | */
-   uint8 NPFG_WIND_COND_HIGH_FEAS=1, /* Wind condition is high, but path following is still feasible | */
-   uint8 NPFG_WIND_COND_HIGH_INFEAS=2, /* Wind condition is high and path following is not feasible | */
+   NPFG_WIND_COND_LOW=0, /* Wind condition is low | */
+   NPFG_WIND_COND_HIGH_FEAS=1, /* Wind condition is high, but path following is still feasible | */
+   NPFG_WIND_COND_HIGH_INFEAS=2, /* Wind condition is high and path following is not feasible | */
    NPFG_WIND_COND_ENUM_END=3, /*  | */
 } NPFG_WIND_COND;
 #endif
