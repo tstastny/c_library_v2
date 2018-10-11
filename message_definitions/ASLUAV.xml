@@ -200,5 +200,12 @@
       <field type="float" name="pwr_brd_ext_amp" units="A">Power board extension current sensor</field>
       <field type="float" name="pwr_brd_aux_amp" units="A">Power board aux current sensor</field>
     </message>
+    <message id="213" name="SENS_HALL">
+      <description>Hall effect sensor and angle of attack</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp</field>
+      <field type="float" name="mag_T" units="mT">Magnetic force [mT]</field>
+      <field type="float" name="temp_C" units="C">Temperature [C]</field>
+      <field type="float" name="aoa" units="deg">Angle of Attack [deg]</field>
+    </message>
   </messages>
 </mavlink>
