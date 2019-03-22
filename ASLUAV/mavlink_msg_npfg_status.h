@@ -5,19 +5,19 @@
 
 MAVPACKED(
 typedef struct __mavlink_npfg_status_t {
- uint64_t timestamp; /*< Timestamp*/
- float path_curvature; /*< Path curvature*/
- float lateral_accel_demand; /*< Lateral acceleration demand*/
- float heading_ref; /*< Heading reference*/
- float heading_error; /*< Heading error*/
- float nav_bearing; /*< Look-ahead bearing*/
- float bearing_feas; /*< Bearing feasibility*/
- float track_error; /*< Track error*/
- float track_error_bound; /*< Track error boundary*/
- float p_gain; /*< Proportional gain*/
- float airsp_incr_w; /*< Airspeed increment due to wind speed*/
- float airsp_incr_e; /*< Airspeed increment due to track error*/
- uint8_t wind_condition; /*< Wind condition*/
+ uint64_t timestamp; /*< [us] Timestamp*/
+ float path_curvature; /*< [m^-1] Path curvature*/
+ float lateral_accel_demand; /*< [m/s^2] Lateral acceleration demand*/
+ float heading_ref; /*< [deg] Heading reference*/
+ float heading_error; /*< [deg] Heading error*/
+ float nav_bearing; /*< [deg] Look-ahead bearing*/
+ float bearing_feas; /*<  Bearing feasibility*/
+ float track_error; /*< [m] Track error*/
+ float track_error_bound; /*< [m] Track error boundary*/
+ float p_gain; /*<  Proportional gain*/
+ float airsp_incr_w; /*< [m/s] Airspeed increment due to wind speed*/
+ float airsp_incr_e; /*< [m/s] Airspeed increment due to track error*/
+ uint8_t wind_condition; /*<  Wind condition*/
 }) mavlink_npfg_status_t;
 
 #define MAVLINK_MSG_ID_NPFG_STATUS_LEN 53
@@ -77,19 +77,19 @@ typedef struct __mavlink_npfg_status_t {
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param msg The MAVLink message to compress the data into
  *
- * @param timestamp Timestamp
- * @param path_curvature Path curvature
- * @param lateral_accel_demand Lateral acceleration demand
- * @param heading_ref Heading reference
- * @param heading_error Heading error
- * @param nav_bearing Look-ahead bearing
- * @param bearing_feas Bearing feasibility
- * @param track_error Track error
- * @param track_error_bound Track error boundary
- * @param p_gain Proportional gain
- * @param airsp_incr_w Airspeed increment due to wind speed
- * @param airsp_incr_e Airspeed increment due to track error
- * @param wind_condition Wind condition
+ * @param timestamp [us] Timestamp
+ * @param path_curvature [m^-1] Path curvature
+ * @param lateral_accel_demand [m/s^2] Lateral acceleration demand
+ * @param heading_ref [deg] Heading reference
+ * @param heading_error [deg] Heading error
+ * @param nav_bearing [deg] Look-ahead bearing
+ * @param bearing_feas  Bearing feasibility
+ * @param track_error [m] Track error
+ * @param track_error_bound [m] Track error boundary
+ * @param p_gain  Proportional gain
+ * @param airsp_incr_w [m/s] Airspeed increment due to wind speed
+ * @param airsp_incr_e [m/s] Airspeed increment due to track error
+ * @param wind_condition  Wind condition
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_npfg_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
@@ -141,19 +141,19 @@ static inline uint16_t mavlink_msg_npfg_status_pack(uint8_t system_id, uint8_t c
  * @param component_id ID of this component (e.g. 200 for IMU)
  * @param chan The MAVLink channel this message will be sent over
  * @param msg The MAVLink message to compress the data into
- * @param timestamp Timestamp
- * @param path_curvature Path curvature
- * @param lateral_accel_demand Lateral acceleration demand
- * @param heading_ref Heading reference
- * @param heading_error Heading error
- * @param nav_bearing Look-ahead bearing
- * @param bearing_feas Bearing feasibility
- * @param track_error Track error
- * @param track_error_bound Track error boundary
- * @param p_gain Proportional gain
- * @param airsp_incr_w Airspeed increment due to wind speed
- * @param airsp_incr_e Airspeed increment due to track error
- * @param wind_condition Wind condition
+ * @param timestamp [us] Timestamp
+ * @param path_curvature [m^-1] Path curvature
+ * @param lateral_accel_demand [m/s^2] Lateral acceleration demand
+ * @param heading_ref [deg] Heading reference
+ * @param heading_error [deg] Heading error
+ * @param nav_bearing [deg] Look-ahead bearing
+ * @param bearing_feas  Bearing feasibility
+ * @param track_error [m] Track error
+ * @param track_error_bound [m] Track error boundary
+ * @param p_gain  Proportional gain
+ * @param airsp_incr_w [m/s] Airspeed increment due to wind speed
+ * @param airsp_incr_e [m/s] Airspeed increment due to track error
+ * @param wind_condition  Wind condition
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_npfg_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
@@ -231,19 +231,19 @@ static inline uint16_t mavlink_msg_npfg_status_encode_chan(uint8_t system_id, ui
  * @brief Send a npfg_status message
  * @param chan MAVLink channel to send the message
  *
- * @param timestamp Timestamp
- * @param path_curvature Path curvature
- * @param lateral_accel_demand Lateral acceleration demand
- * @param heading_ref Heading reference
- * @param heading_error Heading error
- * @param nav_bearing Look-ahead bearing
- * @param bearing_feas Bearing feasibility
- * @param track_error Track error
- * @param track_error_bound Track error boundary
- * @param p_gain Proportional gain
- * @param airsp_incr_w Airspeed increment due to wind speed
- * @param airsp_incr_e Airspeed increment due to track error
- * @param wind_condition Wind condition
+ * @param timestamp [us] Timestamp
+ * @param path_curvature [m^-1] Path curvature
+ * @param lateral_accel_demand [m/s^2] Lateral acceleration demand
+ * @param heading_ref [deg] Heading reference
+ * @param heading_error [deg] Heading error
+ * @param nav_bearing [deg] Look-ahead bearing
+ * @param bearing_feas  Bearing feasibility
+ * @param track_error [m] Track error
+ * @param track_error_bound [m] Track error boundary
+ * @param p_gain  Proportional gain
+ * @param airsp_incr_w [m/s] Airspeed increment due to wind speed
+ * @param airsp_incr_e [m/s] Airspeed increment due to track error
+ * @param wind_condition  Wind condition
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
@@ -356,7 +356,7 @@ static inline void mavlink_msg_npfg_status_send_buf(mavlink_message_t *msgbuf, m
 /**
  * @brief Get field timestamp from npfg_status message
  *
- * @return Timestamp
+ * @return [us] Timestamp
  */
 static inline uint64_t mavlink_msg_npfg_status_get_timestamp(const mavlink_message_t* msg)
 {
@@ -366,7 +366,7 @@ static inline uint64_t mavlink_msg_npfg_status_get_timestamp(const mavlink_messa
 /**
  * @brief Get field path_curvature from npfg_status message
  *
- * @return Path curvature
+ * @return [m^-1] Path curvature
  */
 static inline float mavlink_msg_npfg_status_get_path_curvature(const mavlink_message_t* msg)
 {
@@ -376,7 +376,7 @@ static inline float mavlink_msg_npfg_status_get_path_curvature(const mavlink_mes
 /**
  * @brief Get field lateral_accel_demand from npfg_status message
  *
- * @return Lateral acceleration demand
+ * @return [m/s^2] Lateral acceleration demand
  */
 static inline float mavlink_msg_npfg_status_get_lateral_accel_demand(const mavlink_message_t* msg)
 {
@@ -386,7 +386,7 @@ static inline float mavlink_msg_npfg_status_get_lateral_accel_demand(const mavli
 /**
  * @brief Get field heading_ref from npfg_status message
  *
- * @return Heading reference
+ * @return [deg] Heading reference
  */
 static inline float mavlink_msg_npfg_status_get_heading_ref(const mavlink_message_t* msg)
 {
@@ -396,7 +396,7 @@ static inline float mavlink_msg_npfg_status_get_heading_ref(const mavlink_messag
 /**
  * @brief Get field heading_error from npfg_status message
  *
- * @return Heading error
+ * @return [deg] Heading error
  */
 static inline float mavlink_msg_npfg_status_get_heading_error(const mavlink_message_t* msg)
 {
@@ -406,7 +406,7 @@ static inline float mavlink_msg_npfg_status_get_heading_error(const mavlink_mess
 /**
  * @brief Get field nav_bearing from npfg_status message
  *
- * @return Look-ahead bearing
+ * @return [deg] Look-ahead bearing
  */
 static inline float mavlink_msg_npfg_status_get_nav_bearing(const mavlink_message_t* msg)
 {
@@ -416,7 +416,7 @@ static inline float mavlink_msg_npfg_status_get_nav_bearing(const mavlink_messag
 /**
  * @brief Get field bearing_feas from npfg_status message
  *
- * @return Bearing feasibility
+ * @return  Bearing feasibility
  */
 static inline float mavlink_msg_npfg_status_get_bearing_feas(const mavlink_message_t* msg)
 {
@@ -426,7 +426,7 @@ static inline float mavlink_msg_npfg_status_get_bearing_feas(const mavlink_messa
 /**
  * @brief Get field track_error from npfg_status message
  *
- * @return Track error
+ * @return [m] Track error
  */
 static inline float mavlink_msg_npfg_status_get_track_error(const mavlink_message_t* msg)
 {
@@ -436,7 +436,7 @@ static inline float mavlink_msg_npfg_status_get_track_error(const mavlink_messag
 /**
  * @brief Get field track_error_bound from npfg_status message
  *
- * @return Track error boundary
+ * @return [m] Track error boundary
  */
 static inline float mavlink_msg_npfg_status_get_track_error_bound(const mavlink_message_t* msg)
 {
@@ -446,7 +446,7 @@ static inline float mavlink_msg_npfg_status_get_track_error_bound(const mavlink_
 /**
  * @brief Get field p_gain from npfg_status message
  *
- * @return Proportional gain
+ * @return  Proportional gain
  */
 static inline float mavlink_msg_npfg_status_get_p_gain(const mavlink_message_t* msg)
 {
@@ -456,7 +456,7 @@ static inline float mavlink_msg_npfg_status_get_p_gain(const mavlink_message_t* 
 /**
  * @brief Get field airsp_incr_w from npfg_status message
  *
- * @return Airspeed increment due to wind speed
+ * @return [m/s] Airspeed increment due to wind speed
  */
 static inline float mavlink_msg_npfg_status_get_airsp_incr_w(const mavlink_message_t* msg)
 {
@@ -466,7 +466,7 @@ static inline float mavlink_msg_npfg_status_get_airsp_incr_w(const mavlink_messa
 /**
  * @brief Get field airsp_incr_e from npfg_status message
  *
- * @return Airspeed increment due to track error
+ * @return [m/s] Airspeed increment due to track error
  */
 static inline float mavlink_msg_npfg_status_get_airsp_incr_e(const mavlink_message_t* msg)
 {
@@ -476,7 +476,7 @@ static inline float mavlink_msg_npfg_status_get_airsp_incr_e(const mavlink_messa
 /**
  * @brief Get field wind_condition from npfg_status message
  *
- * @return Wind condition
+ * @return  Wind condition
  */
 static inline uint8_t mavlink_msg_npfg_status_get_wind_condition(const mavlink_message_t* msg)
 {

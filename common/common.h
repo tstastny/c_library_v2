@@ -426,7 +426,7 @@ typedef enum UAVCAN_NODE_MODE
 } UAVCAN_NODE_MODE;
 #endif
 
-/** @brief THIS INTERFACE IS DEPRECATED AS OF JULY 2015. Please use MESSAGE_INTERVAL instead. A data stream is not a fixed set of messages, but rather a
+/** @brief A data stream is not a fixed set of messages, but rather a
      recommendation to the autopilot software. Individual autopilots may or may not obey
      the recommended messages. */
 #ifndef HAVE_ENUM_MAV_DATA_STREAM
@@ -446,7 +446,7 @@ typedef enum MAV_DATA_STREAM
 } MAV_DATA_STREAM;
 #endif
 
-/** @brief THIS INTERFACE IS DEPRECATED AS OF JANUARY 2018. Please use MAV_CMD_DO_SET_ROI_* messages instead. The ROI (region of interest) for the vehicle. This can be
+/** @brief The ROI (region of interest) for the vehicle. This can be
                 be used by the vehicle for camera/vehicle attitude alignment (see
                 MAV_CMD_NAV_ROI). */
 #ifndef HAVE_ENUM_MAV_ROI
@@ -675,8 +675,11 @@ typedef enum MAV_SENSOR_ORIENTATION
    MAV_SENSOR_ROTATION_ROLL_270_PITCH_270=35, /* Roll: 270, Pitch: 270, Yaw: 0 | */
    MAV_SENSOR_ROTATION_ROLL_90_PITCH_180_YAW_90=36, /* Roll: 90, Pitch: 180, Yaw: 90 | */
    MAV_SENSOR_ROTATION_ROLL_90_YAW_270=37, /* Roll: 90, Pitch: 0, Yaw: 270 | */
-   MAV_SENSOR_ROTATION_ROLL_315_PITCH_315_YAW_315=38, /* Roll: 315, Pitch: 315, Yaw: 315 | */
-   MAV_SENSOR_ORIENTATION_ENUM_END=39, /*  | */
+   MAV_SENSOR_ROTATION_ROLL_90_PITCH_68_YAW_293=38, /* Roll: 90, Pitch: 68, Yaw: 293 | */
+   MAV_SENSOR_ROTATION_PITCH_315=39, /* Pitch: 315 | */
+   MAV_SENSOR_ROTATION_ROLL_90_PITCH_315=40, /* Roll: 90, Pitch: 315 | */
+   MAV_SENSOR_ROTATION_CUSTOM=100, /* Custom orientation | */
+   MAV_SENSOR_ORIENTATION_ENUM_END=101, /*  | */
 } MAV_SENSOR_ORIENTATION;
 #endif
 
@@ -991,6 +994,17 @@ typedef enum GPS_FIX_TYPE
 } GPS_FIX_TYPE;
 #endif
 
+/** @brief RTK GPS baseline coordinate system, used for RTK corrections */
+#ifndef HAVE_ENUM_RTK_BASELINE_COORDINATE_SYSTEM
+#define HAVE_ENUM_RTK_BASELINE_COORDINATE_SYSTEM
+typedef enum RTK_BASELINE_COORDINATE_SYSTEM
+{
+   RTK_BASELINE_COORDINATE_SYSTEM_ECEF=0, /* Earth-centered, Earth-fixed | */
+   RTK_BASELINE_COORDINATE_SYSTEM_NED=1, /* North, East, Down | */
+   RTK_BASELINE_COORDINATE_SYSTEM_ENUM_END=2, /*  | */
+} RTK_BASELINE_COORDINATE_SYSTEM;
+#endif
+
 /** @brief Type of landing target */
 #ifndef HAVE_ENUM_LANDING_TARGET_TYPE
 #define HAVE_ENUM_LANDING_TARGET_TYPE
@@ -1071,17 +1085,6 @@ typedef enum MAV_ARM_AUTH_DENIED_REASON
    MAV_ARM_AUTH_DENIED_REASON_BAD_WEATHER=5, /* Weather is not good to fly | */
    MAV_ARM_AUTH_DENIED_REASON_ENUM_END=6, /*  | */
 } MAV_ARM_AUTH_DENIED_REASON;
-#endif
-
-/** @brief RTK GPS baseline coordinate system, used for RTK corrections */
-#ifndef HAVE_ENUM_RTK_BASELINE_COORDINATE_SYSTEM
-#define HAVE_ENUM_RTK_BASELINE_COORDINATE_SYSTEM
-typedef enum RTK_BASELINE_COORDINATE_SYSTEM
-{
-   RTK_BASELINE_COORDINATE_SYSTEM_ECEF=0, /* Earth-centered, Earth-fixed | */
-   RTK_BASELINE_COORDINATE_SYSTEM_NED=1, /* North, East, Down | */
-   RTK_BASELINE_COORDINATE_SYSTEM_ENUM_END=2, /*  | */
-} RTK_BASELINE_COORDINATE_SYSTEM;
 #endif
 
 /** @brief RC type */

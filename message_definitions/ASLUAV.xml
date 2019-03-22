@@ -27,6 +27,18 @@
         <param index="7">Empty</param>
       </entry>
     </enum>
+    <enum name="NPFG_WIND_COND">
+      <!-- NPFG wind condition specifiers -->
+      <entry name="NPFG_WIND_COND_LOW" value="0">
+        <description>Wind condition is low</description>
+      </entry>
+      <entry name="NPFG_WIND_COND_HIGH_FEAS" value="1">
+        <description>Wind condition is high, but path following is still feasible</description>
+      </entry>
+      <entry name="NPFG_WIND_COND_HIGH_INFEAS" value="2">
+        <description>Wind condition is high and path following is not feasible</description>
+      </entry>
+    </enum>
   </enums>
   <messages>
     <message id="78" name="COMMAND_INT_STAMPED">
@@ -233,6 +245,51 @@
       <field type="float" name="pwr_brd_digital_amp" units="A">Power board digital current sensor</field>
       <field type="float" name="pwr_brd_ext_amp" units="A">Power board extension current sensor</field>
       <field type="float" name="pwr_brd_aux_amp" units="A">Power board aux current sensor</field>
+    </message>
+    <message id="213" name="NPFG_STATUS">
+      <description>Nonlinear path following guidance status</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp</field>
+      <field type="float" name="path_curvature" units="m^-1">Path curvature</field>
+      <field type="float" name="lateral_accel_demand" units="m/s^2">Lateral acceleration demand</field>
+      <field type="float" name="heading_ref" units="deg">Heading reference</field>
+      <field type="float" name="heading_error" units="deg">Heading error</field>
+      <field type="float" name="nav_bearing" units="deg">Look-ahead bearing</field>
+      <field type="float" name="bearing_feas">Bearing feasibility</field>
+      <field type="float" name="track_error" units="m">Track error</field>
+      <field type="float" name="track_error_bound" units="m">Track error boundary</field>
+      <field type="float" name="p_gain">Proportional gain</field>
+      <field type="float" name="airsp_incr_w" units="m/s">Airspeed increment due to wind speed</field>
+      <field type="float" name="airsp_incr_e" units="m/s">Airspeed increment due to track error</field>
+      <field type="uint8_t" name="wind_condition" enum="NPFG_WIND_COND">Wind condition</field>
+    </message>
+    <message id="214" name="HIL_GROUND_TRUTH">
+      <description>Hardware-in-the-loop ground truth data</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp</field>
+      <field type="float" name="roll" units="rad">Roll angle</field>
+      <field type="float" name="pitch" units="rad">Pitch angle</field>
+      <field type="float" name="yaw" units="rad">Yaw angle</field>
+      <field type="float" name="roll_rate" units="rad/s">Roll rate</field>
+      <field type="float" name="pitch_rate" units="rad/s">Pitch rate</field>
+      <field type="float" name="yaw_rate" units="rad/s">Yaw rate</field>
+      <field type="int32_t" name="lat" units="degE7">Latitude</field>
+      <field type="int32_t" name="lon" units="degE7">Longitude</field>
+      <field type="float" name="alt">Altitude</field>
+      <field type="float" name="vn" units="m/s">Northing ground speed</field>
+      <field type="float" name="ve" units="m/s">Easting ground speed</field>
+      <field type="float" name="vd" units="m/s">Down ground speed</field>
+      <field type="float" name="ias" units="m/s">Indicated airspeed</field>
+      <field type="float" name="tas" units="m/s">True airspeed</field>
+      <field type="float" name="wind_speed" units="m/s">Wind speed (2D)</field>
+      <field type="float" name="wind_dir" units="deg">Wind direction (2D)</field>
+      <field type="float" name="wind_z" units="m/s">Wind Z</field>
+      <field type="float" name="alpha" units="deg">Angle of attack</field>
+      <field type="float" name="beta" units="deg">Sideslip</field>
+    </message>
+    <message id="215" name="HIL_AIRFLOW_ANGLES">
+      <description>Hardware-in-the-loop airflow angle sensor data</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp</field>
+      <field type="float" name="angleofattack" units="deg">Angle of attack</field>
+      <field type="float" name="sideslip" units="deg">Sideslip angle</field>
     </message>
   </messages>
 </mavlink>

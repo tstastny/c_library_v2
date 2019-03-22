@@ -1007,7 +1007,7 @@ static void mavlink_test_hil_ground_truth(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_hil_ground_truth_t packet_in = {
-        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,963499128,963499336,297.0,325.0,353.0,381.0,409.0,437.0,465.0,493.0
+        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,963499128,963499336,297.0,325.0,353.0,381.0,409.0,437.0,465.0,493.0,521.0,549.0,577.0
     };
     mavlink_hil_ground_truth_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -1028,6 +1028,9 @@ static void mavlink_test_hil_ground_truth(uint8_t system_id, uint8_t component_i
         packet1.tas = packet_in.tas;
         packet1.wind_speed = packet_in.wind_speed;
         packet1.wind_dir = packet_in.wind_dir;
+        packet1.wind_z = packet_in.wind_z;
+        packet1.alpha = packet_in.alpha;
+        packet1.beta = packet_in.beta;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -1042,12 +1045,12 @@ static void mavlink_test_hil_ground_truth(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_hil_ground_truth_pack(system_id, component_id, &msg , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir );
+    mavlink_msg_hil_ground_truth_pack(system_id, component_id, &msg , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir , packet1.wind_z , packet1.alpha , packet1.beta );
     mavlink_msg_hil_ground_truth_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_hil_ground_truth_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir );
+    mavlink_msg_hil_ground_truth_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir , packet1.wind_z , packet1.alpha , packet1.beta );
     mavlink_msg_hil_ground_truth_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -1060,8 +1063,64 @@ static void mavlink_test_hil_ground_truth(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_hil_ground_truth_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir );
+    mavlink_msg_hil_ground_truth_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.roll , packet1.pitch , packet1.yaw , packet1.roll_rate , packet1.pitch_rate , packet1.yaw_rate , packet1.lat , packet1.lon , packet1.alt , packet1.vn , packet1.ve , packet1.vd , packet1.ias , packet1.tas , packet1.wind_speed , packet1.wind_dir , packet1.wind_z , packet1.alpha , packet1.beta );
     mavlink_msg_hil_ground_truth_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
+static void mavlink_test_hil_airflow_angles(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_HIL_AIRFLOW_ANGLES >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_hil_airflow_angles_t packet_in = {
+        93372036854775807ULL,73.0,101.0
+    };
+    mavlink_hil_airflow_angles_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.timestamp = packet_in.timestamp;
+        packet1.angleofattack = packet_in.angleofattack;
+        packet1.sideslip = packet_in.sideslip;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_HIL_AIRFLOW_ANGLES_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_HIL_AIRFLOW_ANGLES_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_hil_airflow_angles_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_hil_airflow_angles_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_hil_airflow_angles_pack(system_id, component_id, &msg , packet1.timestamp , packet1.angleofattack , packet1.sideslip );
+    mavlink_msg_hil_airflow_angles_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_hil_airflow_angles_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.angleofattack , packet1.sideslip );
+    mavlink_msg_hil_airflow_angles_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_hil_airflow_angles_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_hil_airflow_angles_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.angleofattack , packet1.sideslip );
+    mavlink_msg_hil_airflow_angles_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
@@ -1083,6 +1142,7 @@ static void mavlink_test_ASLUAV(uint8_t system_id, uint8_t component_id, mavlink
     mavlink_test_sens_power_board(system_id, component_id, last_msg);
     mavlink_test_npfg_status(system_id, component_id, last_msg);
     mavlink_test_hil_ground_truth(system_id, component_id, last_msg);
+    mavlink_test_hil_airflow_angles(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus
