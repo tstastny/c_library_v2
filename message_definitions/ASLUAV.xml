@@ -291,5 +291,11 @@
       <field type="float" name="angleofattack" units="deg">Angle of attack</field>
       <field type="float" name="sideslip" units="deg">Sideslip angle</field>
     </message>
+    <message id="216" name="AIRFLOW_ANGLES">
+      <description>Airflow angle measurements</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp</field>
+      <field type="float" name="angleofattack" units="deg">Angle of attack</field>
+      <field type="float" name="sideslip" units="deg">Sideslip angle</field>
+    </message>
   </messages>
 </mavlink>
