@@ -1109,6 +1109,146 @@ static void mavlink_test_sensor_airflow_angles(uint8_t system_id, uint8_t compon
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }
 
+static void mavlink_test_tecs_infos(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_TECS_INFOS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_tecs_infos_t packet_in = {
+        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,409.0,437.0,197,8
+    };
+    mavlink_tecs_infos_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.timestamp = packet_in.timestamp;
+        packet1.altitudeSp = packet_in.altitudeSp;
+        packet1.altitude_filtered = packet_in.altitude_filtered;
+        packet1.flightPathAngleSp = packet_in.flightPathAngleSp;
+        packet1.flightPathAngle = packet_in.flightPathAngle;
+        packet1.airspeedSp = packet_in.airspeedSp;
+        packet1.airspeed_filtered = packet_in.airspeed_filtered;
+        packet1.airspeedDerivativeSp = packet_in.airspeedDerivativeSp;
+        packet1.airspeedDerivative = packet_in.airspeedDerivative;
+        packet1.totalEnergyError = packet_in.totalEnergyError;
+        packet1.energyDistributionError = packet_in.energyDistributionError;
+        packet1.totalEnergyRateError = packet_in.totalEnergyRateError;
+        packet1.energyDistributionRateError = packet_in.energyDistributionRateError;
+        packet1.throttle_integ = packet_in.throttle_integ;
+        packet1.pitch_integ = packet_in.pitch_integ;
+        packet1.mode = packet_in.mode;
+        packet1.active = packet_in.active;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_TECS_INFOS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_TECS_INFOS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_tecs_infos_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_tecs_infos_pack(system_id, component_id, &msg , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_tecs_infos_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_tecs_infos_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_tecs_infos_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_tecs_infos_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
+static void mavlink_test_nl_tecs_infos(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
+{
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+    mavlink_status_t *status = mavlink_get_channel_status(MAVLINK_COMM_0);
+        if ((status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) && MAVLINK_MSG_ID_NL_TECS_INFOS >= 256) {
+            return;
+        }
+#endif
+    mavlink_message_t msg;
+        uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
+        uint16_t i;
+    mavlink_nl_tecs_infos_t packet_in = {
+        93372036854775807ULL,73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,409.0,437.0,197,8
+    };
+    mavlink_nl_tecs_infos_t packet1, packet2;
+        memset(&packet1, 0, sizeof(packet1));
+        packet1.timestamp = packet_in.timestamp;
+        packet1.altitudeSp = packet_in.altitudeSp;
+        packet1.altitude_filtered = packet_in.altitude_filtered;
+        packet1.flightPathAngleSp = packet_in.flightPathAngleSp;
+        packet1.flightPathAngle = packet_in.flightPathAngle;
+        packet1.airspeedSp = packet_in.airspeedSp;
+        packet1.airspeed_filtered = packet_in.airspeed_filtered;
+        packet1.airspeedDerivativeSp = packet_in.airspeedDerivativeSp;
+        packet1.airspeedDerivative = packet_in.airspeedDerivative;
+        packet1.totalEnergyError = packet_in.totalEnergyError;
+        packet1.energyDistributionError = packet_in.energyDistributionError;
+        packet1.totalEnergyRateError = packet_in.totalEnergyRateError;
+        packet1.energyDistributionRateError = packet_in.energyDistributionRateError;
+        packet1.throttle_integ = packet_in.throttle_integ;
+        packet1.pitch_integ = packet_in.pitch_integ;
+        packet1.mode = packet_in.mode;
+        packet1.active = packet_in.active;
+        
+        
+#ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
+        if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {
+           // cope with extensions
+           memset(MAVLINK_MSG_ID_NL_TECS_INFOS_MIN_LEN + (char *)&packet1, 0, sizeof(packet1)-MAVLINK_MSG_ID_NL_TECS_INFOS_MIN_LEN);
+        }
+#endif
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_nl_tecs_infos_encode(system_id, component_id, &msg, &packet1);
+    mavlink_msg_nl_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_nl_tecs_infos_pack(system_id, component_id, &msg , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_nl_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_nl_tecs_infos_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_nl_tecs_infos_decode(&msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+
+        memset(&packet2, 0, sizeof(packet2));
+        mavlink_msg_to_send_buffer(buffer, &msg);
+        for (i=0; i<mavlink_msg_get_send_buffer_length(&msg); i++) {
+            comm_send_ch(MAVLINK_COMM_0, buffer[i]);
+        }
+    mavlink_msg_nl_tecs_infos_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+        
+        memset(&packet2, 0, sizeof(packet2));
+    mavlink_msg_nl_tecs_infos_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.altitudeSp , packet1.altitude_filtered , packet1.flightPathAngleSp , packet1.flightPathAngle , packet1.airspeedSp , packet1.airspeed_filtered , packet1.airspeedDerivativeSp , packet1.airspeedDerivative , packet1.totalEnergyError , packet1.energyDistributionError , packet1.totalEnergyRateError , packet1.energyDistributionRateError , packet1.throttle_integ , packet1.pitch_integ , packet1.mode , packet1.active );
+    mavlink_msg_nl_tecs_infos_decode(last_msg, &packet2);
+        MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
+}
+
 static void mavlink_test_ASLUAV(uint8_t system_id, uint8_t component_id, mavlink_message_t *last_msg)
 {
     mavlink_test_command_int_stamped(system_id, component_id, last_msg);
@@ -1128,6 +1268,8 @@ static void mavlink_test_ASLUAV(uint8_t system_id, uint8_t component_id, mavlink
     mavlink_test_gsm_link_status(system_id, component_id, last_msg);
     mavlink_test_satcom_link_status(system_id, component_id, last_msg);
     mavlink_test_sensor_airflow_angles(system_id, component_id, last_msg);
+    mavlink_test_tecs_infos(system_id, component_id, last_msg);
+    mavlink_test_nl_tecs_infos(system_id, component_id, last_msg);
 }
 
 #ifdef __cplusplus
